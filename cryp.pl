@@ -20,17 +20,24 @@ allDifferent([X, Y | L]) :-
 	allDifferent([Y | L]).
 
 constraint(W, X, Y, Z) :-
-	(W * 10) + X = (2 * Y) + Z.
+  isCarry(W),
+  isDigit(X),
+  isDigit(Y),
+  isCarry(Z),
+	T is ((W * 10) + X),
+	T is ((2 * Y) + Z).
 
 constraint(F) :-
+	isDigit(F),
 	not(F = 0).
 
 solve(S) :-
-	values(T, W, O, F, U, R, C1, C2, C3),
 	constraint(F),
 	constraint(0, F, 0, C3),
 	constraint(C3, O, T, C2),
+	allDifferent([T, O, F]),
 	constraint(C2, U, W, C1),
+	allDifferent([T, W, O, F, U]),
 	constraint(C1, R, O, 0),
-	allDifferent(T, W, O, F, U, R),
+	allDifferent([T, W, O, F, U, R]),
 	S = [T, W, O, F, U, R].
