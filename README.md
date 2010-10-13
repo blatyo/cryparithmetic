@@ -1,5 +1,14 @@
 # Crparithmetic
 
+## Running
+Open prolog with the file:
+
+    swipl -f cryp.pl
+
+Then in Swi run:
+
+    solve([T, W, O, F, U, R]).
+
 ## Problem
 Implement a naive backtracking solution to the problem:
 
