@@ -1,23 +1,13 @@
 isCarry(X) :-
-		X = 0 
-	| X = 1.
+	X = 0; X = 1.
 
 isDigit(X) :- 
-	isCarry(X) 
-	| X = 2
-	| X = 3
-	| X = 4
-	| X = 5
-	| X = 6
-	| X = 7
-	| X = 8
-	| X = 9.
+	isCarry(X); X = 2; X = 3; X = 4; 
+	X = 5; X = 6; X = 7; X = 8; X = 9.
 
-allDifferent([_]).
-allDifferent([X, Y | L]) :-
-	not(X = Y),
-	allDifferent([X | L]),
-	allDifferent([Y | L]).
+constraint(F) :-
+	isDigit(F),
+	not(F = 0).
 
 constraint(W, X, Y, Z) :-
   isCarry(W),
@@ -27,9 +17,11 @@ constraint(W, X, Y, Z) :-
 	T is ((W * 10) + X),
 	T is ((2 * Y) + Z).
 
-constraint(F) :-
-	isDigit(F),
-	not(F = 0).
+allDifferent([_]).
+allDifferent([X, Y | L]) :-
+	not(X = Y),
+	allDifferent([X | L]),
+	allDifferent([Y | L]).
 
 solve(S) :-
 	constraint(F),
